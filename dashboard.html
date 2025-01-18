@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Virtual Memory Journal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: url("{% static 'journal/images/bgg.jpg' %}") no-repeat center center fixed;
+        background-size: cover; margin: 0; padding: 0; }
+        nav { background-color: #333; color: white; padding: 10px; text-align: center; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; }
+        .container { max-width: 800px; margin: 30px auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+        .journal-entry { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; border-radius: 5px; }
+        h1 { font-size: 24px; color: #333; }
+        .entry-actions a { margin-right: 10px; color: #3498db; text-decoration: none; }
+        .entry-actions a:hover { color: #1abc9c; }
+        button { padding: 10px 15px; background-color: #e74c3c; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background-color: #c0392b; }
+    </style>
+</head>
+<body><h1>Virtual Memory Journal</h1>
+
+    <nav>
+        <a href="/">Dashboard</a>
+        <a href="/create/">Create Entry</a>
+    
+        <a href="/admin/">Admin Login</a>
+
+    </nav>
+    <div class="container">
+        <h1>Journal Dashboard</h1>
+        {% for entry in entries %}
+            <div class="journal-entry">
+                <h2><a href="/view/{{ entry.id }}/">{{ entry.title }}</a></h2>
+                <p>{{ entry.content|slice:":200" }}...</p>
+                <p><strong>Created on:</strong> {{ entry.date_created }}</p>
+                <div class="entry-actions">
+                    <a href="/edit/{{ entry.id }}/">Edit</a>
+                    <a href="/delete/{{ entry.id }}/">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
